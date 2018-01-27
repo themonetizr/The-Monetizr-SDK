@@ -49,7 +49,18 @@
 
 - (UIModalPresentationStyle)adaptivePresentationStyleForTraitCollection:(UITraitCollection *)traitCollection
 {
-	return (traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) ? UIModalPresentationFullScreen : UIModalPresentationFormSheet;
+    UIDeviceOrientation Orientation=[[UIDevice currentDevice]orientation];
+    
+    if(Orientation==UIDeviceOrientationLandscapeLeft || Orientation==UIDeviceOrientationLandscapeRight)
+    {
+        // Landscape
+        return (traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) ? UIModalPresentationFormSheet : UIModalPresentationFormSheet;
+    }
+    else
+    {
+        // Portrait
+        return (traitCollection.horizontalSizeClass == UIUserInterfaceSizeClassCompact) ? UIModalPresentationFullScreen : UIModalPresentationFormSheet;
+    }
 }
 
 @end

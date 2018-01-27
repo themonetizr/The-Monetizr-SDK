@@ -350,7 +350,7 @@ CGFloat const BUYMaxProductViewHeight = 640.0;
     // Setup variant view
     
     if (self.shouldShowVariantSelector) {
-        ProductVariantView *variantView = [[ProductVariantView alloc] initWithFrame:CGRectMake(0, 0, self.preferredContentSize.width, 55)];
+        ProductVariantView *variantView = [[ProductVariantView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 55)]; //self.preferredContentSize.width
         if (self.shouldEnableVariantSelection) {
             [variantView setOptionsForProductVariant:self.selectedProductVariant hideDisclosureIndicator:NO];
             UITapGestureRecognizer *variantSelectorFingerTap =
