@@ -9,7 +9,7 @@
 	<key>appId</key>
 	<string>8</string>
 	<key>shopDomain</key>
-	<string>themonetizr.myshopify.com</string>
+	<string>monetizr.myshopify.com</string>
 	<key>apiKey</key>
 	<string></string>
 </dict>
