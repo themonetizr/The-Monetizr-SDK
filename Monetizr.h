@@ -39,10 +39,7 @@
 + (void) showProductWithID:(NSString *)productID;
 + (void) showProductWithID:(NSString *)productID completion:(void (^)(BOOL success, NSError *error))completion;
 
-+ (void) showProductForTag: (NSString *)productTag forUser:(NSString *)userID;
-+ (void) showProductForTag:(NSString *)productTag forUser:(NSString *)userID completion:(void (^)(BOOL success, NSError *error))completion;
-
-+ (void) showProductForTag:(NSString *)productTag;
-+ (void) showProductForTag:(NSString *)productTag completion:(void (^)(BOOL success, NSError *error))completion;
++ (void) showProductForTag: (NSString *)productTag forLanguage:(NSString *)language forUser:(NSString *)userID;
++ (void) showProductForTag:(NSString *)productTag forLanguage:(NSString *)language forUser:(NSString *)userID completion:(void (^)(BOOL success, NSError *error))completion;
 
 @end

@@ -8,32 +8,18 @@
 
 @implementation Monetizr
 
-+ (void) showProductForTag:(NSString *)productTag {
-    [self showProductForTag:productTag forUser:nil completion:nil];
++ (void) showProductForTag:(NSString *)productTag forLanguage:(NSString *)language forUser:(NSString *)userID {
+    [self showProductForTag:productTag forLanguage:(NSString *)language forUser:userID completion:nil];
 }
 
-+ (void) showProductForTag:(NSString *)productTag completion:(void (^)(BOOL, NSError *))completion {
-    [self showProductForTag:productTag forUser:nil completion:(void (^)(BOOL, NSError *))completion];
-}
-
-+ (void) showProductForTag:(NSString *)productTag forUser:(NSString *)userID {
-    [self showProductForTag:productTag forUser:userID completion:nil];
-}
-
-+ (void) showProductForTag:(NSString *)productTag forUser:(NSString *)userID completion:(void (^)(BOOL success, NSError *error))completion {
++ (void) showProductForTag:(NSString *)productTag forLanguage:(NSString *)language forUser:(NSString *)userID completion:(void (^)(BOOL success, NSError *error))completion {
     
     // Start networking
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"Monetizr" ofType:@"plist"];
-    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-    NSString *apiKey = [dict valueForKey:@"apiKey"];
-    NSString *apiUrl = [dict valueForKey:@"apiUrl"];
-    NSString *urlString = [NSString stringWithFormat:@"https://%@/get-tag?apiKey=%@&tag=%@", apiUrl, apiKey, productTag];
-    if (userID) {
-        urlString = [urlString stringByAppendingString:[NSString stringWithFormat:@"&user_id=%@", userID]];
-    }
+    NSString *apiUrl = @"api2.themonetizr.com";
+    NSString *urlString = [NSString stringWithFormat:@"https://%@/get-tag?user_id=%@&tag=%@&language=%@", apiUrl, userID, productTag, language];
 
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         // Success
@@ -46,8 +32,33 @@
                     if (responseObject[@"product_id"]) {
                         // Got product ID
                         if (![[responseObject valueForKey:@"product_id"] isKindOfClass:[NSNull class]]) {
-                            NSString *productID = [responseObject valueForKey:@"product_id"];
-                            [self showProductWithID:productID completion:completion];
+                            if (responseObject[@"shopDomain"]) {
+                                // Got product shopDomain
+                                if ([[responseObject valueForKey:@"shopDomain"] isKindOfClass:[NSString class]]) {
+                                    if (responseObject[@"applePayMerchantId"]) {
+                                        // Got applePayMerchantId
+                                        if ([[responseObject valueForKey:@"applePayMerchantId"] isKindOfClass:[NSString class]]) {
+                                            if (responseObject[@"appId"]) {
+                                                // Got appId
+                                                if ([[responseObject valueForKey:@"appId"] isKindOfClass:[NSString class]]) {
+                                                    if (responseObject[@"shopify_apiKey"]) {
+                                                        // Got shopify_apiKey
+                                                        if ([[responseObject valueForKey:@"shopify_apiKey"] isKindOfClass:[NSString class]]) {
+                                                            NSString *productID = [responseObject valueForKey:@"product_id"];
+                                                            NSString *shopDomain = [responseObject valueForKey:@"shopDomain"];
+                                                            NSString *applePayMerchantId = [responseObject valueForKey:@"applePayMerchantId"];
+                                                            NSString *appId = [responseObject valueForKey:@"appId"];
+                                                            NSString *apiKey = [responseObject valueForKey:@"shopify_apiKey"];
+                                                            [self showProductWithID:productID shopDomain:shopDomain apiKey:apiKey appId:appId applePayMerchantId:applePayMerchantId completion:completion];
+                                                            
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -58,22 +69,36 @@
         // Failure
         NSLog(@"Error: %@", error);
         completion(NO, error);
+        NSString* ErrorResponse = [[NSString alloc] initWithData:(NSData *)error.userInfo[AFNetworkingOperationFailingURLResponseDataErrorKey] encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",ErrorResponse);
     }];
 }
 
 + (void) showProductWithID:(NSString *)productID {
-    [self showProductWithID:productID completion:nil];
+    [self showProductWithID:productID shopDomain:nil apiKey:nil appId:nil applePayMerchantId:nil completion:nil];
 }
 
 + (void) showProductWithID:(NSString *)productID completion:(void (^)(BOOL success, NSError *error))completion {
+    [self showProductWithID:productID shopDomain:nil apiKey:nil appId:nil applePayMerchantId:nil completion:nil];
+}
+
++ (void) showProductWithID:(NSString *)productID shopDomain:(NSString *)shopDomain apiKey:(NSString *)apiKey appId:(NSString *)appId applePayMerchantId:(NSString *)applePayMerchantId completion:(void (^)(BOOL success, NSError *error))completion {
     
     // Read Monetizr properties
     NSString *path = [[NSBundle mainBundle] pathForResource:@"Monetizr" ofType:@"plist"];
     NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-    NSString *shopDomain = [dict valueForKey:@"shopDomain"];
-    NSString *apiKey = [dict valueForKey:@"apiKey"];
-    NSString *appId = [dict valueForKey:@"appId"];
-    NSString *applePayMerchantId = [dict valueForKey:@"applePayMerchantId"];
+    if (shopDomain == nil) {
+        shopDomain = [dict valueForKey:@"shopDomain"];
+    }
+    if (apiKey == nil) {
+        apiKey = [dict valueForKey:@"apiKey"];
+    }
+    if (appId == nil) {
+        appId = [dict valueForKey:@"appId"];
+    }
+    if (applePayMerchantId == nil) {
+        applePayMerchantId = [dict valueForKey:@"applePayMerchantId"];
+    }
 
     BUYClient *client = [[BUYClient alloc] initWithShopDomain:shopDomain apiKey:apiKey appId:appId];
     
