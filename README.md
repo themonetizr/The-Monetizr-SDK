@@ -55,12 +55,12 @@ Find setup instructions on [Apple developer website](https://developer.apple.com
 * To open product view using Product TAG
 
 ```objc
-[Monetizr showProductForTag:@"TAG" forLanguage:@"en" forUser:@"user"]
+[Monetizr showProductForTag:@"TAG" forLanguage:@"en" forUser:@"user" forKey:@"apiKey"]
 ```
 * To open product view using Product TAG and get callback
 
 ```objc
-[Monetizr showProductForTag:@"TAG" forLanguage:@"en" forUser:@"user" completion:^(BOOL success, NSError *error)]
+[Monetizr showProductForTag:@"TAG" forLanguage:@"en" forUser:@"user" forKey:@"apiKey" completion:^(BOOL success, NSError *error)]
 ```
 ### Help
 
