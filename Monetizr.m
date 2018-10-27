@@ -8,16 +8,17 @@
 
 @implementation Monetizr
 
-+ (void) showProductForTag:(NSString *)productTag forLanguage:(NSString *)language forUser:(NSString *)userID forKey:(NSString *)apiKey {
-    [self showProductForTag:productTag forLanguage:(NSString *)language forUser:userID forKey:(NSString *)apiKey completion:nil];
++ (void) showProductForTag:(NSString *)productTag forUser:(NSString *)userID forKey:(NSString *)apiKey {
+    [self showProductForTag:productTag forUser:userID forKey:(NSString *)apiKey completion:nil];
 }
 
-+ (void) showProductForTag:(NSString *)productTag forLanguage:(NSString *)language forUser:(NSString *)userID forKey:(NSString *)apiKey completion:(void (^)(BOOL success, NSError *error))completion {
++ (void) showProductForTag:(NSString *)productTag forUser:(NSString *)userID forKey:(NSString *)apiKey completion:(void (^)(BOOL success, NSError *error))completion {
     
     // Start networking
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    NSString *language = [[NSLocale preferredLanguages] firstObject];
     NSString *apiUrl = @"api2.themonetizr.com";
     NSString *urlString = [NSString stringWithFormat:@"https://%@/get-tag?user_id=%@&tag=%@&language=%@&apiKey=%@", apiUrl, userID, productTag, language, apiKey];
 
