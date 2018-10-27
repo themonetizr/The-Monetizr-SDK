@@ -1,5 +1,5 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)]()
-![GitHub release](https://img.shields.io/badge/release-1.2.7-blue.svg)
+![GitHub release](https://img.shields.io/badge/release-1.2.8-blue.svg)
 
 # TheMonetizr SDK for iOS
 TheMonetizr SDK makes it simple to sell physical products inside your mobile app. With a few lines of code, you can let your users buy products using Apple Pay or their credit card.
