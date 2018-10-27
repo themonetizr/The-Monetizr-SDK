@@ -103,7 +103,7 @@ NSString * const MerchantId = @"";
     
     // Prefetch the shop object for Apple Pay
     [self.client getShop:^(BUYShop *shop, NSError *error) {
-        _shop = shop;
+        self.shop = shop;
     }];
 }
 
