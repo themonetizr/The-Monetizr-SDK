@@ -10,5 +10,7 @@
 	<string>monetizr.myshopify.com</string>
 	<key>apiKey</key>
 	<string></string>
+	<key>developerApiKey</key>
+	<string></string>
 </dict>
 </plist>

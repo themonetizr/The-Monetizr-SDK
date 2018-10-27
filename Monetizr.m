@@ -8,11 +8,16 @@
 
 @implementation Monetizr
 
-+ (void) showProductForTag:(NSString *)productTag forUser:(NSString *)userID forKey:(NSString *)apiKey {
-    [self showProductForTag:productTag forUser:userID forKey:(NSString *)apiKey completion:nil];
++ (void) showProductForTag:(NSString *)productTag forUser:(NSString *)userID {
+    [self showProductForTag:productTag forUser:userID completion:nil];
 }
 
-+ (void) showProductForTag:(NSString *)productTag forUser:(NSString *)userID forKey:(NSString *)apiKey completion:(void (^)(BOOL success, NSError *error))completion {
++ (void) showProductForTag:(NSString *)productTag forUser:(NSString *)userID completion:(void (^)(BOOL success, NSError *error))completion {
+    
+    // Read Monetizr properties
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"Monetizr" ofType:@"plist"];
+    NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
+    NSString *developerApiKey = [dict valueForKey:@"developerApiKey"];
     
     // Start networking
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -20,7 +25,7 @@
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     NSString *language = [[NSLocale preferredLanguages] firstObject];
     NSString *apiUrl = @"api2.themonetizr.com";
-    NSString *urlString = [NSString stringWithFormat:@"https://%@/get-tag?user_id=%@&tag=%@&language=%@&apiKey=%@", apiUrl, userID, productTag, language, apiKey];
+    NSString *urlString = [NSString stringWithFormat:@"https://%@/get-tag?user_id=%@&tag=%@&language=%@&apiKey=%@", apiUrl, userID, productTag, language, developerApiKey];
 
     [manager GET:urlString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         // Success
