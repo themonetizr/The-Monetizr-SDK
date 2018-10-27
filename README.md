@@ -1,5 +1,5 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)]()
-![GitHub release](https://img.shields.io/badge/release-1.2.6-blue.svg)
+![GitHub release](https://img.shields.io/badge/release-1.2.7-blue.svg)
 
 # TheMonetizr SDK for iOS
 TheMonetizr SDK makes it simple to sell physical products inside your mobile app. With a few lines of code, you can let your users buy products using Apple Pay or their credit card.
@@ -29,7 +29,7 @@ Add Monetizr-SDK to your Xcode project.
 
 Find setup instructions on [Apple developer website](https://developer.apple.com/apple-pay/) and [The Monetizr website](http://themonetizr.com/implementation/). Use Certificate Signing Request (CSR) provided by TheMonetizr.
 
-* Configure Monetizr.plist (needed only if "showProductWithID" is used)
+* Configure Monetizr.plist
 
 ```objc
 @{
@@ -37,7 +37,8 @@ Find setup instructions on [Apple developer website](https://developer.apple.com
     @"applePayMerchantId": @"", // Optional
     @"appId": @"", // Provided by TheMonetizr
     @"shopDomain": @"", // Provided by TheMonetizr
-    @"apiKey": @"", // Provided by TheMonetizr  
+    @"apiKey": @"", // Provided by TheMonetizr 
+    @"developerApiKey": @"", // Provided by TheMonetizr 
 };
 ```
 
@@ -55,12 +56,12 @@ Find setup instructions on [Apple developer website](https://developer.apple.com
 * To open product view using Product TAG
 
 ```objc
-[Monetizr showProductForTag:@"TAG" forLanguage:@"en" forUser:@"user" forKey:@"apiKey"]
+[Monetizr showProductForTag:@"TAG" forUser:@"user"]
 ```
 * To open product view using Product TAG and get callback
 
 ```objc
-[Monetizr showProductForTag:@"TAG" forLanguage:@"en" forUser:@"user" forKey:@"apiKey" completion:^(BOOL success, NSError *error)]
+[Monetizr showProductForTag:@"TAG" forUser:@"user" completion:^(BOOL success, NSError *error)]
 ```
 ### Help
 
