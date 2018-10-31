@@ -323,7 +323,16 @@ NSString * const MerchantId = @"";
         [self presentViewController:safariViewController animated:YES completion:nil];
     }
     else {
-        [[UIApplication sharedApplication] openURL:self.checkout.webCheckoutURL];
+        if ([[UIApplication sharedApplication] canOpenURL:self.checkout.webCheckoutURL]){
+            if (@available(iOS 10.0, *)) {
+                [[UIApplication sharedApplication] openURL:self.checkout.webCheckoutURL options:@{} completionHandler:^(BOOL success) {
+                    //completion codes here
+                }];
+            } else {
+                // Fallback on earlier versions
+                [[UIApplication sharedApplication] openURL:self.checkout.webCheckoutURL];
+            }
+        }
     }
 }
 
