@@ -56,6 +56,7 @@
                                                             NSString *appId = [responseObject valueForKey:@"appId"];
                                                             NSString *apiKey = [responseObject valueForKey:@"shopify_apiKey"];
                                                             [self showProductWithID:productID shopDomain:shopDomain apiKey:apiKey appId:appId applePayMerchantId:applePayMerchantId completion:completion];
+                                                            return;
                                                             
                                                         }
                                                     }
@@ -69,6 +70,10 @@
                     }
                 }
             }
+            NSMutableDictionary* details = [NSMutableDictionary dictionary];
+            [details setValue:@"Internal server error" forKey:NSLocalizedDescriptionKey];
+            NSError *error = [NSError errorWithDomain:@"Monetizr" code:500 userInfo:details];
+            completion(NO, error);
         }
 
     } failure:^(NSURLSessionTask *operation, NSError *error) {
