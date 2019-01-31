@@ -7,7 +7,7 @@ TheMonetizr SDK makes it simple to sell physical products inside your mobile app
 TheMonetizr SDK requires Shopify’s [Mobile Buy SDK](https://github.com/Shopify/mobile-buy-sdk-ios) distributed under MIT license
 
 ### Documentation
-Official documentation can be found on the [TheMonetizr website](http://themonetizr.com).
+Official documentation can be found on the [TheMonetizr website](https://docs.themonetizr.com).
 
 ### Installation
 [Install Shopify’s Mobile Buy SDK](https://github.com/Shopify/mobile-buy-sdk-ios#installation)
@@ -27,7 +27,7 @@ Add Monetizr-SDK to your Xcode project.
 ```
 * Setup and enable Apple Pay in your project (Optional)
 
-Find setup instructions on [Apple developer website](https://developer.apple.com/apple-pay/) and [The Monetizr website](http://themonetizr.com/implementation/). Use Certificate Signing Request (CSR) provided by TheMonetizr.
+Find setup instructions on [Apple developer website](https://developer.apple.com/apple-pay/) and [The Monetizr website](https://docs.themonetizr.com/). Use Certificate Signing Request (CSR) provided by TheMonetizr.
 
 * Configure Monetizr.plist
 
@@ -65,7 +65,7 @@ Find setup instructions on [Apple developer website](https://developer.apple.com
 ```
 ### Help
 
-For help, please contact [TheMonetizr](http://themonetizr.com).
+For help, please contact [TheMonetizr](info@themonetizr.com).
 
 ### License
 
