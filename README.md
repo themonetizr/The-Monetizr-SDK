@@ -70,3 +70,4 @@ For help, please contact [TheMonetizr](info@themonetizr.com).
 ### License
 
 TheMonetizr SDK is provided under an MIT Licence.  See the [LICENSE](LICENSE) file
+
